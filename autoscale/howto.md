@@ -67,25 +67,13 @@ Tried:
 
 
 
+###
+helpful links
 
 
-
-
-1. Install folder prom
-2. Install helmchart ()
-    --> other folder 
-3. Install hpa
-
-
-
-
-
-
-
-hints:
-geht mit Bitnami Anleitung
-k get --raw /apis/custom-metrics.metrics.k8s.io/v1alpha1/namespaces/*/metrics/myfirstmetric
-
-
-query metrics on shell with HELM install von custom.metric
-kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1/namespaces/*/metrics/http_request
+- https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+- https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#apiservice-v1-apiregistration-k8s-io
+- https://blog.jetstack.io/blog/resource-and-custom-metrics-hpa-v2/#the-custom-metrics-api
+- https://medium.com/uptime-99/kubernetes-hpa-autoscaling-with-custom-and-external-metrics-da7f41ff7846
+- https://github.com/lachie83/rps-demo-prometheus
+- https://github.com/directxman12/k8s-prometheus-adapter
