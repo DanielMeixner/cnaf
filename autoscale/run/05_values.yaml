@@ -1,0 +1,18 @@
+# Url to access prometheus
+prometheus:
+  url: http://prometheus-svc.default.svc.cluster.local
+  port: 9090
+
+metricsRelistInterval: 30s
+logLevel: 6
+rules:
+  default: false
+  custom:
+  - seriesQuery: 'http_request'
+    resources:
+      overrides:
+        namespace: {resource: "namespace"}
+        pod: {resource: "pod"}
+    name:
+     as: "http_request"
+    metricsQuery: http_request

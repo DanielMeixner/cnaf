@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+  namespace: default  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nginx
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        resources: {}       
+---
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2beta2
+metadata:
+  name: nginx-hpa
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: sample-metrics-app
+    apiVersion: apps/v1beta1
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:  
+  - type: Pods
+    pods:
+      metric:
+        name: http_request
+      target:
+        type: AverageValue
+        averageValue: 1
+
+
+# works
+#   kind: HorizontalPodAutoscaler
+# apiVersion: autoscaling/v2beta2
+# metadata:
+#   name: sample-metrics-app-hpa
+# spec:
+#   scaleTargetRef:
+#     kind: Deployment
+#     name: sample-metrics-app
+#     apiVersion: apps/v1beta1
+#   minReplicas: 1
+#   maxReplicas: 1
+#   metrics:  
+#   - type: Pods
+#     pods:
+#       metric:
+#         name: http_request              
+#       target:
+#         type: AverageValue
+#         averageValue: 10

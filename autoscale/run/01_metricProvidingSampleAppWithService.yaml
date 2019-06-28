@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: sample-metrics-app
+    name: sample-metrics-app
+  name: sample-metrics-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sample-metrics-app
+    spec:
+      containers:
+      - image: danielmeixner/simplemetricapp
+        name: sample-metrics-app
+        ports:
+        - name: metrics
+          containerPort: 10000
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi  
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-metrics-app  
+  labels:
+    app: sample-metrics-app
+spec:
+  type: LoadBalancer
+  ports:
+  - name: metrics
+    port: 80
+    targetPort: 10000
+  selector:
+    app: sample-metrics-app
