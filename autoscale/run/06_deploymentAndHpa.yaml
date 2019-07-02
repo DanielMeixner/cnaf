@@ -30,7 +30,7 @@ metadata:
 spec:
   scaleTargetRef:
     kind: Deployment
-    name: sample-metrics-app
+    name: nginx
     apiVersion: apps/v1beta1
   minReplicas: 1
   maxReplicas: 10
